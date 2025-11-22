@@ -8,6 +8,8 @@
 
 config_version=5
 
+paths=["res://fog_game.gdextension"]
+
 [application]
 
 config/name="Fog Game"
