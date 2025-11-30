@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsp1mcymcyau4"]
+
+[ext_resource type="Shader" uid="uid://bqdedkqwowo8u" path="res://Scripts/fog_overlay.gdshader" id="1_n16hj"]
+[ext_resource type="Texture2D" uid="uid://cqoic5m2211oq" path="res://Assets/noiseTexture(1).png" id="2_5gb24"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n16hj"]
+shader = ExtResource("1_n16hj")
+shader_parameter/fog_tex = ExtResource("2_5gb24")
+shader_parameter/fog_scroll_velocity = Vector2(0.015, -0.02)
+shader_parameter/fog_strength = 0.950000045125
+
+[node name="DynamicFog2D" type="DynamicFog2D"]
+LightGroup = "light"
+
+[node name="Fog" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_n16hj")

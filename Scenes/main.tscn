@@ -1,19 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqwyic7o1wngj"]
+[gd_scene load_steps=5 format=3 uid="uid://bqwyic7o1wngj"]
 
+[ext_resource type="PackedScene" uid="uid://bsp1mcymcyau4" path="res://Scenes/fog.tscn" id="1_8gbba"]
 [ext_resource type="Texture2D" uid="uid://bstoctoyrbwff" path="res://Assets/Light_cone_small.png" id="1_jjgbg"]
-[ext_resource type="Script" uid="uid://xt80cgp5ilr4" path="res://Scenes/Light.cs" id="2_bo1nx"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7u77a"]
-blend_mode = 3
+[ext_resource type="Script" uid="uid://xt80cgp5ilr4" path="res://Scripts/Light.cs" id="2_bo1nx"]
+[ext_resource type="Texture2D" uid="uid://d2q7tt1gjgkdb" path="res://Assets/icon.svg" id="4_jjvhh"]
 
 [node name="Main" type="Node2D"]
 
-[node name="DynamicFog2D" type="DynamicFog2D" parent="."]
-FogOpacity = 0.5
-LightGroup = "light"
+[node name="placeholder background" type="Sprite2D" parent="."]
+position = Vector2(575.5, 324.5)
+scale = Vector2(8.8984375, 5.0078125)
+texture = ExtResource("4_jjvhh")
 
-[node name="Fog" type="Sprite2D" parent="DynamicFog2D"]
-material = SubResource("CanvasItemMaterial_7u77a")
+[node name="DynamicFog2D" parent="." instance=ExtResource("1_8gbba")]
+FogRegenRate = 5.0
 
 [node name="LightCone" type="Sprite2D" parent="." node_paths=PackedStringArray("Pivot") groups=["light"]]
 visible = false
