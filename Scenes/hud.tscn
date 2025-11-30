@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhghd63xm85ks"]
+
+[ext_resource type="Script" uid="uid://cfqj7654ww8vk" path="res://Scripts/Hud.cs" id="1_e0onf"]
+
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("ScoreLabel", "BatteryLabel", "ScoreTimer", "BatteryTimer")]
+script = ExtResource("1_e0onf")
+ScoreLabel = NodePath("ScoreLabel")
+BatteryLabel = NodePath("BatteryLabel")
+ScoreTimer = NodePath("ScoreTimer")
+BatteryTimer = NodePath("BatteryTimer")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_right = 36.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 36
+text = "0:00"
+horizontal_alignment = 2
+
+[node name="BatteryLabel" type="Label" parent="."]
+offset_right = 93.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 36
+text = "100%"
+
+[node name="ScoreTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="BatteryTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
+[connection signal="timeout" from="BatteryTimer" to="." method="OnBatteryTimerTimeout"]

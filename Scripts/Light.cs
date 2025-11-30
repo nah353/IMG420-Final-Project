@@ -4,6 +4,17 @@ public partial class Light : Sprite2D
 {
 	[Export] public Node2D Pivot;
 	[Export] public float Radius = 150f;
+	
+	private float batteryDecimal = 0f;
+	
+	private float baseRadius;
+	private Vector2 baseScale;
+	
+	public override void _Ready()
+	{
+		baseRadius = Radius;
+		baseScale = Scale;
+	}
 
 	public override void _Process(double delta)
 	{
@@ -23,5 +34,12 @@ public partial class Light : Sprite2D
 		GlobalPosition = pivotPos + new Vector2(Radius, 0).Rotated(angle);
 
 		Rotation = angle;
+	}
+	
+	private void OnHudBatteryUpdate(float batteryPercent)
+	{
+		batteryDecimal = batteryPercent / 100;
+		Radius = baseRadius * batteryDecimal;
+		Scale = baseScale * batteryDecimal;
 	}
 }

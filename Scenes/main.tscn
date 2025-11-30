@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqwyic7o1wngj"]
+[gd_scene load_steps=6 format=3 uid="uid://bqwyic7o1wngj"]
 
 [ext_resource type="PackedScene" uid="uid://bsp1mcymcyau4" path="res://Scenes/fog.tscn" id="1_8gbba"]
 [ext_resource type="Texture2D" uid="uid://bstoctoyrbwff" path="res://Assets/Light_cone_small.png" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://xt80cgp5ilr4" path="res://Scripts/Light.cs" id="2_bo1nx"]
 [ext_resource type="Texture2D" uid="uid://d2q7tt1gjgkdb" path="res://Assets/icon.svg" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://dhghd63xm85ks" path="res://Scenes/hud.tscn" id="5_kry3j"]
 
 [node name="Main" type="Node2D"]
 
@@ -15,6 +16,9 @@ texture = ExtResource("4_jjvhh")
 [node name="DynamicFog2D" parent="." instance=ExtResource("1_8gbba")]
 FogRegenRate = 5.0
 
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(576, 324)
+
 [node name="LightCone" type="Sprite2D" parent="." node_paths=PackedStringArray("Pivot") groups=["light"]]
 visible = false
 position = Vector2(576, 324)
@@ -23,5 +27,10 @@ texture = ExtResource("1_jjgbg")
 script = ExtResource("2_bo1nx")
 Pivot = NodePath("../Pivot")
 
-[node name="Pivot" type="Node2D" parent="."]
-position = Vector2(576, 324)
+[node name="LightHitbox" type="CollisionPolygon2D" parent="LightCone"]
+scale = Vector2(4, 4)
+polygon = PackedVector2Array(15, -18, 15, -17, 13, -17, 13, -16, 10, -16, 10, -15, 7, -15, 7, -14, 4, -14, 4, -13, 1, -13, 1, -12, -2, -12, -2, -11, -4, -11, -4, -10, -7, -10, -7, -9, -10, -9, -10, -8, -14, -8, -14, -7, -18, -7, -18, -6, -20, -6, -20, -5, -24, -5, -24, -4, -26, -4, -26, -3, -28, -3, -28, -2, -29, -2, -29, 0, -30, 0, -30, 2, -29, 2, -29, 4, -28, 4, -28, 5, -26, 5, -26, 6, -20, 6, -20, 7, -16, 7, -16, 8, -13, 8, -13, 9, -9, 9, -9, 10, -6, 10, -6, 11, -2, 11, -2, 12, 0, 12, 0, 13, 3, 13, 3, 14, 7, 14, 7, 15, 10, 15, 10, 16, 13, 16, 13, 17, 17, 17, 17, 18, 22, 18, 22, 17, 24, 17, 24, 16, 25, 16, 25, 15, 26, 15, 26, 14, 27, 14, 27, 11, 28, 11, 28, 5, 29, 5, 29, 1, 28, 1, 28, -9, 27, -9, 27, -13, 26, -13, 26, -15, 25, -15, 25, -16, 24, -16, 24, -17, 23, -17, 23, -18)
+
+[node name="HUD" parent="." instance=ExtResource("5_kry3j")]
+
+[connection signal="BatteryUpdate" from="HUD" to="LightCone" method="OnHudBatteryUpdate"]
