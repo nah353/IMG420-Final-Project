@@ -1,13 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhghd63xm85ks"]
+[gd_scene load_steps=7 format=3 uid="uid://dhghd63xm85ks"]
 
 [ext_resource type="Script" uid="uid://cfqj7654ww8vk" path="res://Scripts/Hud.cs" id="1_e0onf"]
+[ext_resource type="FontFile" uid="uid://bqrbhqlpc0no1" path="res://Assets/Batsand.ttf" id="2_6fbih"]
+[ext_resource type="Shader" uid="uid://bqdedkqwowo8u" path="res://Scripts/fog_overlay.gdshader" id="3_t1xeu"]
+[ext_resource type="Texture2D" uid="uid://cqoic5m2211oq" path="res://Assets/noiseTexture(1).png" id="4_36asn"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("ScoreLabel", "BatteryLabel", "ScoreTimer", "BatteryTimer")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8jye8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_43w4t"]
+shader = ExtResource("3_t1xeu")
+shader_parameter/fog_tex = ExtResource("4_36asn")
+shader_parameter/fog_scroll_velocity = Vector2(0.02, 0.015)
+shader_parameter/fog_strength = 0.950000045125
+
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("ScoreLabel", "ScoreTimer", "GameOver", "DescriptionText")]
 script = ExtResource("1_e0onf")
 ScoreLabel = NodePath("ScoreLabel")
-BatteryLabel = NodePath("BatteryLabel")
 ScoreTimer = NodePath("ScoreTimer")
-BatteryTimer = NodePath("BatteryTimer")
+GameOver = NodePath("GameOver")
+DescriptionText = NodePath("GameOver/DescriptionText")
 
 [node name="ScoreLabel" type="Label" parent="."]
 anchors_preset = 1
@@ -20,19 +31,91 @@ theme_override_font_sizes/font_size = 36
 text = "0:00"
 horizontal_alignment = 2
 
-[node name="BatteryLabel" type="Label" parent="."]
-visible = false
-offset_right = 93.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 36
-text = "100%"
-
 [node name="ScoreTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="BatteryTimer" type="Timer" parent="."]
-wait_time = 0.02
-autostart = true
+[node name="GameOver" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverText" type="Label" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 263.0
+offset_top = 85.0
+offset_right = 874.0
+offset_bottom = 248.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.99999994, 0.042179003, 0.010314227, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_6fbih")
+theme_override_font_sizes/font_size = 160
+text = "GAME OVER"
+
+[node name="DescriptionText" type="Label" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 149.0
+offset_top = 321.0
+offset_right = 969.5
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_6fbih")
+theme_override_font_sizes/font_size = 48
+text = "You survived for x:xx!"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 459.0
+offset_top = 496.0
+offset_right = 647.0
+offset_bottom = 570.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.043137256, 0.011764706, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_6fbih")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8jye8")
+text = "RESTART"
+flat = true
+
+[node name="DynamicFog2D" type="DynamicFog2D" parent="GameOver"]
+LightGroup = "light"
+z_index = -1
+
+[node name="Fog" type="Sprite2D" parent="GameOver/DynamicFog2D"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_43w4t")
 
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
-[connection signal="timeout" from="BatteryTimer" to="." method="OnBatteryTimerTimeout"]
+[connection signal="pressed" from="GameOver/RestartButton" to="." method="OnRestartButtonPressed"]

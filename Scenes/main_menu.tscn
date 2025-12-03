@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3pe154op0p3k"]
+
+[ext_resource type="Shader" uid="uid://bqdedkqwowo8u" path="res://Scripts/fog_overlay.gdshader" id="1_7vrkn"]
+[ext_resource type="Script" uid="uid://iqospo1uf60p" path="res://Scripts/MainMenu.cs" id="1_jix8l"]
+[ext_resource type="Texture2D" uid="uid://cqoic5m2211oq" path="res://Assets/noiseTexture(1).png" id="2_fu7sn"]
+[ext_resource type="FontFile" uid="uid://bqrbhqlpc0no1" path="res://Assets/Batsand.ttf" id="3_fu7sn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jix8l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jix8l"]
+shader = ExtResource("1_7vrkn")
+shader_parameter/fog_tex = ExtResource("2_fu7sn")
+shader_parameter/fog_scroll_velocity = Vector2(0.02, 0.015)
+shader_parameter/fog_strength = 0.950000045125
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jix8l")
+
+[node name="TitleText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -285.0
+offset_top = 62.0
+offset_right = 285.0
+offset_bottom = 225.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.99999994, 0.042179003, 0.010314227, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_fu7sn")
+theme_override_font_sizes/font_size = 160
+text = "FOG GAME"
+
+[node name="DescriptionText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -410.0
+offset_top = -54.0
+offset_right = 410.5
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_fu7sn")
+theme_override_font_sizes/font_size = 48
+text = "How to play: WASD or arrow keys to move.
+ Seek batteries to recharge flashlight.
+Kill enemies with flashlight.
+Survive as long as possible."
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.5
+offset_top = 195.0
+offset_right = 62.5
+offset_bottom = 269.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.043137256, 0.011764706, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_fu7sn")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
+text = "START"
+flat = true
+
+[node name="DynamicFog2D" type="DynamicFog2D" parent="."]
+LightGroup = "light"
+z_index = -1
+
+[node name="Fog" type="Sprite2D" parent="DynamicFog2D"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_jix8l")
+
+[connection signal="pressed" from="StartButton" to="." method="OnStartButtonPressed"]

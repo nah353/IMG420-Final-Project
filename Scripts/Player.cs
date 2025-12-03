@@ -7,8 +7,11 @@
 		
 		public float CurrentBattery {get; private set; }
 		[Export] public float MaxBattery = 100f;
-		[Export] public float DrainPerSecond = 5f;
+		[Export] public float DrainPerSecond = 1f;
 		[Export] public NodePath BatteryBarPath;
+		
+		[Signal] public delegate void BatteryUpdateEventHandler();
+		[Signal] public delegate void PlayerDeathEventHandler();
 		
 		private TextureProgressBar _batteryBar;
 		
@@ -48,6 +51,8 @@
 			{
 				_batteryBar.Value = CurrentBattery;
 			}
+			
+			EmitSignal(SignalName.BatteryUpdate, CurrentBattery / 100);
 		}
 		
 		public void AddBattery(float amount)
@@ -59,5 +64,10 @@
 				_batteryBar.Value = CurrentBattery;
 				GD.Print($"Battery recharged by {amount}. Current: {CurrentBattery}/{MaxBattery}");
 			}
+		}
+		
+		public void Die()
+		{
+			EmitSignal(SignalName.PlayerDeath);
 		}
 	}

@@ -43,10 +43,9 @@ public partial class Light : Sprite2D
 		LightHitbox.Scale = Scale * 4.0f;
 	}
 	
-	private void OnHudBatteryUpdate(float batteryPercent)
+	private void OnBatteryUpdate(float batteryPercent)
 	{
-		batteryDecimal = batteryPercent / 10000f;
-		Radius = baseRadius * batteryDecimal;
-		Scale = baseScale * batteryDecimal;
+		Radius = baseRadius * batteryPercent;
+		Scale = baseScale * batteryPercent;
 	}
 }

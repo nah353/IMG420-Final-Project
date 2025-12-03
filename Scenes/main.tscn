@@ -125,7 +125,7 @@ shader_parameter/fog_strength = 0.950000045125
 [node name="player" parent="." instance=ExtResource("1_jjgbg")]
 z_index = 1
 position = Vector2(598, 327)
-DrainPerSecond = 2.5
+DrainPerSecond = 0.5
 BatteryBarPath = NodePath("../CanvasLayer/Control/TextureProgressBar")
 
 [node name="Camera2D" type="Camera2D" parent="player"]
@@ -209,4 +209,4 @@ texture_progress = ExtResource("11_fdnlq")
 
 [node name="HUD" parent="." instance=ExtResource("13_fdnlq")]
 
-[connection signal="BatteryUpdate" from="HUD" to="CanvasLayer/LightCone" method="OnHudBatteryUpdate"]
+[connection signal="BatteryUpdate" from="player" to="CanvasLayer/LightCone" method="OnBatteryUpdate"]
