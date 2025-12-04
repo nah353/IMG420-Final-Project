@@ -2,8 +2,8 @@
 
 ## Team Members:
 - Nyle Huntley - Gameplay design and fog system GDExtension lead
-- Sean Weston - Monster behavior and design lead
 - Hilbert Lee - UI, map design and battery system lead
+- Sean Weston - Monster behavior and design lead
 
 ## GDExtension Description:
 The DynamicFog2D node extends Godot's Node2D to render a simple, dynamic fog system. It draws a low resolution mask of black pixels (displayed as white with a shader active) onto a child Sprite2D node, covering the entire display as set in the parameters. Any Sprite2D in the specified light group acts as a "light" - it must have a white texture that is then rotated, scaled, and blended onto the fog image to erase the pixels beneath it. The black fog pixels gradually regenerate over time when not in contact with the lights, which carve out visible areas in real time. Editable parameters include display width and height, fog regeneration rate (how quickly the fog fade back in), and the name of the group containing the Sprite2D "light" nodes. Multiple Sprite2D light sources can be used simultaneously, though for the purposes of our game this was not used.
