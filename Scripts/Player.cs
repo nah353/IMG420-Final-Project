@@ -2,17 +2,25 @@ using Godot;
 
 public partial class Player : CharacterBody2D
 {
-	[Export]
-	public float Speed { get; set; } = 200.0f;
+	[Export]public float Speed { get; set; } = 200.0f;
+	[Export] public float SprintMultiplier {get; set; } = 1.5f;
 	
 	public float CurrentBattery {get; private set; }
 	[Export] public float MaxBattery = 100f;
 	[Export] public float DrainPerSecond = 1f;
 	[Export] public NodePath BatteryBarPath;
 	
+	public float CurrentStamina {get; private set; }
+	[Export] public float MaxStamina = 100f;
+	[Export] public float StaminaDrainPerSecond = 20f;
+	[Export] public float StaminaRegenPerSecond = 10f;
+	[Export] public NodePath StaminaBarPath;
+	
 	[Signal] public delegate void BatteryUpdateEventHandler();
 	[Signal] public delegate void PlayerDeathEventHandler();
+	[Signal] public delegate void StaminaUpdateEventHandler();
 	
+	private TextureProgressBar _staminaBar;
 	private TextureProgressBar _batteryBar;
 	private bool isDead = false;
 	
@@ -26,6 +34,14 @@ public partial class Player : CharacterBody2D
 			_batteryBar.MaxValue = MaxBattery;
 			_batteryBar.Value = CurrentBattery;
 		}
+		
+		CurrentStamina = MaxStamina;
+		if (StaminaBarPath != null && !StaminaBarPath.IsEmpty)
+		{
+			_staminaBar = GetNode<TextureProgressBar>(StaminaBarPath);
+			_staminaBar.MaxValue = MaxStamina;
+			_staminaBar.Value = CurrentStamina;
+		}
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -34,7 +50,26 @@ public partial class Player : CharacterBody2D
 			return;
 			
 		Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		Velocity = inputDirection * Speed;
+		
+		bool wantsToSprint = Input.IsActionPressed("sprint");
+		bool hasStamina = CurrentStamina > 0.1f;
+		bool isMoving = inputDirection != Vector2.Zero;
+		
+		float moveSpeed = Speed;
+		
+		if (wantsToSprint && hasStamina)
+		{
+			moveSpeed *= SprintMultiplier;
+			DrainStamina((float)delta);
+		}
+		else {
+			if (!wantsToSprint)
+			{
+				RegenerateStamina((float)delta);
+			}
+		}
+		
+		Velocity = inputDirection * moveSpeed;
 		MoveAndSlide();
 		
 		UpdateBattery((float)delta);
@@ -67,6 +102,32 @@ public partial class Player : CharacterBody2D
 		{
 			_batteryBar.Value = CurrentBattery;
 		}
+	}
+	
+	private void DrainStamina(float delta)
+	{
+		CurrentStamina -= StaminaDrainPerSecond * delta;
+		CurrentStamina = Mathf.Clamp(CurrentStamina, 0, MaxStamina);
+		
+		if (_staminaBar != null)
+		{
+			_staminaBar.Value = CurrentStamina;
+		}
+		
+		EmitSignal(SignalName.StaminaUpdate, CurrentStamina / MaxStamina);
+	}
+	
+	private void RegenerateStamina(float delta)
+	{
+		CurrentStamina += StaminaRegenPerSecond * delta;
+		CurrentStamina = Mathf.Clamp(CurrentStamina, 0, MaxStamina);
+		
+		if(_staminaBar != null)
+		{
+			_staminaBar.Value = CurrentStamina;
+		}
+		
+		EmitSignal(SignalName.StaminaUpdate, CurrentStamina / MaxStamina);
 	}
 	
 	public void Die()

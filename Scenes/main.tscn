@@ -19,7 +19,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6iyac"]
 shader = ExtResource("9_hptm8")
 shader_parameter/fog_tex = ExtResource("10_d1ilt")
-shader_parameter/fog_scroll_velocity = Vector2(0.02, 0.015)
+shader_parameter/fog_scroll_velocity = Vector2(0, 0)
 shader_parameter/fog_strength = 0.950000045125
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("MapChunk", "Camera")]
@@ -32,8 +32,9 @@ Camera = NodePath("player/Camera2D")
 [node name="player" parent="." instance=ExtResource("1_jjgbg")]
 z_index = 1
 position = Vector2(598, 327)
-DrainPerSecond = 0.5
+DrainPerSecond = 1.5
 BatteryBarPath = NodePath("../CanvasLayer/Control/TextureProgressBar")
+StaminaBarPath = NodePath("../CanvasLayer/Control/HealthBar")
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 
