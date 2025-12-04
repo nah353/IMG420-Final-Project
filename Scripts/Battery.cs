@@ -3,7 +3,7 @@ using Godot;
 
 public partial class Battery : Area2D
 {
-	[Export] public float ChargeAmount = 25f; // how much this item gives
+	[Export] public float ChargeAmount = 50f; // how much this item gives
 
 	public override void _Ready()
 	{

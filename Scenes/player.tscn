@@ -47,7 +47,7 @@ script = ExtResource("3_6t5aa")
 ItemScene = ExtResource("4_vgqql")
 PlayerPath = NodePath("..")
 SpawnInterval = 5.0
-SpawnDistance = 1500.0
+SpawnDistance = 1250.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemSpawnArea"]
 shape = SubResource("CircleShape2D_cvnsp")
@@ -65,4 +65,4 @@ Pivot = NodePath("..")
 SpawnerPath = NodePath("../ItemSpawnArea")
 OrbitRadius = 20.0
 SpriteAngleOffsetDegrees = -45.0
-HintDuration = 5.0
+HintDuration = 10.0
