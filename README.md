@@ -11,7 +11,7 @@ The DynamicFog2D node extends Godot's Node2D to render a simple, dynamic fog sys
 To have a visual fog effect rather than a flat white texture over the screen, a GDShader is applied to the child Sprite2D node used for displaying fog. The shader applies a user specified fog texture on top of the fog pixels and visually animates an endless scrolling effect. The shader also exposes properties for the fog scrolling direction and speed as well as visible opacity of the fog, meaning the fog can be fully opaque or just barely visible over the screen if desired.
 
 ## Features:
-*In case of gif attachment issues, gifs will be permanently stored [here](/Feature_Gifs).*
+*In case of gif attachment issues, gifs will be permanently stored [here](Feature%20Gifs).*
 ### Fog and light system
 Fog system with and without shader texture for demonstration - static green background also for demonstration.
 
