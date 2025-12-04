@@ -58,7 +58,7 @@ theme_override_fonts/font = ExtResource("3_fu7sn")
 theme_override_font_sizes/font_size = 48
 text = "How to play: WASD or arrow keys to move.
  Seek batteries to recharge flashlight.
-Kill enemies with flashlight.
+Scare enemies away with flashlight.
 Survive as long as possible."
 horizontal_alignment = 1
 
