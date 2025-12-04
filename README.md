@@ -33,9 +33,20 @@ Camera zoomed out greatly and fog removed for demonstration. One map chunk is re
 ### Monster AI
 
 
-To run and compile project:
+## Installation, Build and Running Instructions
+1. Clone this repository
+2. Enter IMG420-Final-Project directory in command line
+3. Run "git submodule update --init" to retrieve godot-cpp file content
+4. Run "scons" (with other parameters if necessary) to build gdextension
+5. Open project in Godot or relaunch to use DynamicFog2D node properly
+6. Run the project through 'Run Project' in the Godot editor or press F5 to start the main menu scene, or run that specific scene for intended game flow
 
-1. Enter IMG420-Final-Project directory in command line
-2. Run "git submodule update --init" to retrieve godot-cpp file content
-3. Run "scons" (with other parameters if necessary) to build gdextension
-4. Open project in Godot or relaunch to use DynamicFog2D node properly
+## Controls and Gameplay Instructions
+Use WASD or arrow keys to move the player around and use your mouse to aim the flashlight. Try to survive as long as possible while the AI enemies slowly stalk you, but be careful not to anger them by pointing your flashlight for too long. Use the arrow indicators to find your way to the next battery and recharge your flashlight before its battery runs out and you're left defenseless.
+
+## Known Issues and Future Improvements
+- Sprite2D light textures are scaled up 4x to reduce resolution and greatly improve performance of fog, so light sprites are an inaccurate visualization of the fog cutout effect they have.
+- Light sprites must have their position updated directly rather than as children of some other node such as the player to accurately affect the fog.
+
+## Demo Video
+Video link here
