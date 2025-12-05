@@ -28,7 +28,9 @@ Camera zoomed out greatly and fog removed for demonstration. One map chunk is re
 ![Map generation](https://github.com/nah353/IMG420-Final-Project/blob/0de1cacba204560f4aaab0366b9d112884b6abed/Feature%20Gifs/Map%20generation.gif)
 
 ### Battery spawning and arrow indicators
+The battery spawning system is coded to allow for: changeable spawning distance and a spawn timer within the inspector, the logic also will not spawn a battery if the previous battery hasn't been picked up. It also instantiates an arrow sprite node that points and intermittently flashes to guide the player to the spawned battery.
 
+![Battery spawning](https://github.com/nah353/IMG420-Final-Project/blob/a43a08c77dee9c1907bf2e81d0350e150b532538/Feature%20Gifs/BatterySpawnDemoGif.gif)
 
 ### Monster AI
 The Monster AI is a complex system consisting mainly of light detection, evasion, and an anger meter. When the player has the flashlight on the monster, the monster will freeze in the area. When it is outside of the flashlight, it will begin its evasion that chooses between 5.5 sec and 12 sec randomized by the amount of frames the player looks at the monster. The monster has an Anger Meter which will rise from the initial look at them in the flashlight and every 2 seconds after. Once built up to the max, the monster sprints at the player reguardless of being in the light area or not. The meter does run down at a slow rate every second not spotted. 
