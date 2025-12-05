@@ -31,6 +31,7 @@ Camera zoomed out greatly and fog removed for demonstration. One map chunk is re
 
 
 ### Monster AI
+The Monster AI is a complex system consisting mainly of light detection, evasion, and an anger meter. When the player has the flashlight on the monster, the monster will freeze in the area. When it is outside of the flashlight, it will begin its evasion that chooses between 5.5 sec and 12 sec randomized by the amount of frames the player looks at the monster. The monster has an Anger Meter which will rise from the initial look at them in the flashlight and every 2 seconds after. Once built up to the max, the monster sprints at the player reguardless of being in the light area or not. The meter does run down at a slow rate every second not spotted. 
 
 
 ## Installation, Build and Running Instructions
